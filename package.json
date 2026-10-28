@@ -57,13 +57,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guanbo1/dsh-relay.git"
+    "url": "git+https://github.com/gb677212/dsh-relay.git"
   },
-  "homepage": "https://github.com/guanbo1/dsh-relay#readme",
+  "homepage": "https://github.com/gb677212/dsh-relay#readme",
   "bugs": {
-    "url": "https://github.com/guanbo1/dsh-relay/issues"
+    "url": "https://github.com/gb677212/dsh-relay/issues"
   },
-  "author": "guanbo1",
+  "author": "gb677212",
   "scripts": {
     "sync": "bash scripts/sync.sh"
   }
