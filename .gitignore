@@ -1,0 +1,17 @@
+# 备份文件
+*.bak-*
+*.bak
+
+# 依赖
+node_modules/
+pnpm-lock.yaml
+
+# 运行时产物（本 plugins 会写这些，不应提交）
+relays.json
+session-flags.json
+STATE.md
+
+# 系统
+.DS_Store
+Thumbs.db
+*.log

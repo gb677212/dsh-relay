@@ -1,0 +1,70 @@
+{
+  "name": "dsh-relay",
+  "version": "0.1.0",
+  "description": "会话接力插件：上下文将满时自动总结进度到 STATE.md，创建新顶层会话并继承目标、模型、权限继续工作。含水位提醒、78% 强制投递、目标守护。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-input-trigger"
+      ]
+    },
+    "engines": {
+      "dsh": ">=0.2.0-rc.2"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh": ">=0.2.0-rc.2",
+    "@deepseek-ai/cordis": "^4.0.4"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh": {
+      "optional": true
+    },
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "STATE.template.md",
+    "README.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis-plugin",
+    "session",
+    "relay",
+    "handoff",
+    "context-window",
+    "state-md",
+    "goal"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guanbo1/dsh-relay.git"
+  },
+  "homepage": "https://github.com/guanbo1/dsh-relay#readme",
+  "bugs": {
+    "url": "https://github.com/guanbo1/dsh-relay/issues"
+  },
+  "author": "guanbo1",
+  "scripts": {
+    "sync": "bash scripts/sync.sh"
+  }
+}

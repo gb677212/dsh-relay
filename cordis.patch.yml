@@ -1,0 +1,37 @@
+- insert:
+    - id: dsh-relay
+      name: dsh-relay
+      config:
+        enabled: true
+        thresholdPercent: 78
+        stateFileName: STATE.md
+        maxRelays: 50
+        autoStart: true
+        # 触发时机（2026-10-25 定案）：
+        #   1. turn/end —— 一次对话结束（主要触发点）
+        #   2. 定时巡检 —— 兜底，覆盖 goal 驱动的长任务
+        #      实测教训：某会话从 turn 30 到 turn 31 间隔 73 分钟，
+        #      期间水位涨到 80%+ 却没有任何 turn/end，最后被 DSH 自己压缩掉了。
+        #      而 step/start 只是日志类型、不是 cordis 事件，无法监听。
+        #   巡检只投递「写 STATE.md」指令（入队，不打断工作），模型在 step 边界处理。
+        #   patrol: false = 关闭巡检；默认（省略）= 开启
+        patrol: true
+        # 巡检间隔（毫秒）：3 分钟
+        patrolIntervalMs: 180000
+        # 开发/调试端点（默认关闭）：
+        #   force / spawn-child / selftest / stopgoals 都会产生副作用
+        #   （创建会话、改目标状态），误调用会污染真实会话。
+        #   2026-10-24 教训：测试时反复调 force，对同一个会话造出 8 个垃圾会话。
+        #   需要调试时临时改成 true，用完记得改回 false。
+        devEndpoints: false
+        # 热重载：lib/*.js 变化时自动重载本插件（开发时开，日常可关）
+        hotReloadWatch: false
+        # ★ 目标守护（2026-10-26 用户需求）：
+        #   会话因偶然错误导致目标断掉时，连续 3 分钟检测到
+        #   「phase=active + activation=disarmed + 会话空闲」就自动 goals.resume。
+        #   只恢复【原本就启用】的目标：paused / complete 一律不碰。
+        goalGuard: true
+        goalGuardDelayMs: 180000
+        goalGuardIntervalMs: 30000
+
+        hotReloadDebounceMs: 800
